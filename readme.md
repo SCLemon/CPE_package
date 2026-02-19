@@ -34,6 +34,3 @@ https://github.com/LuckyPigeon/CPE_Previous_Questions
 ## 💻 Online Judge 練習平台
 
 https://vjudge.net/
-
-- Account: sclemon1013
-- Password: sclemon1013
