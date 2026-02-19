@@ -1,0 +1,37 @@
+#include <iostream>
+#include <queue>
+#include <functional>
+#include <string>
+using namespace std;
+
+struct Query {
+    int id, period, next_time;
+    Query(int i, int p) : id(i), period(p), next_time(p) {}
+    bool operator>(const Query& other) const {
+        if (next_time != other.next_time) {
+            return next_time > other.next_time;
+        }
+        return id > other.id;
+    }
+};
+
+int main() {
+    
+    priority_queue<Query, vector<Query>, greater<Query>> pq;
+    string cmd;
+    int id, period, K;
+    
+    while (cin >> cmd && cmd != "#") {
+        cin >> id >> period;
+        pq.push(Query(id, period));
+    }
+    
+    cin >> K;
+    while (K--) {
+        Query q = pq.top();
+        pq.pop();
+        cout << q.id << "\n";
+        q.next_time += q.period;
+        pq.push(q);
+    }
+}

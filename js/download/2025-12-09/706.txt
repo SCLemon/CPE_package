@@ -1,0 +1,32 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+string ds[]={" -     -  -     -  -  -  -  - "
+            ,"| |  |  |  || ||  |    || || |"
+            ,"       -  -  -  -  -     -  - " 
+            ,"| |  ||    |  |  || |  || |  |" 
+            ," -     -  -     -  -     -  - "
+           };
+void show(int p,int w,string s){string cs=ds[p];
+  for(int r=0;r<max(1,p%2*w);r++,cout<<endl){int pd=0;
+    for(char&c:s){int d=(c-'0')*3;if(pd++)cout<<" ";
+			cout<<cs[d];for(int k=0;k<w;k++)cout<<cs[d+1];cout<<cs[d+2];
+    }
+	}
+}
+int main(){
+  int w;string s;
+  while(cin>>w>>s,w){
+    show(0,w,s);
+    show(1,w,s);
+    show(2,w,s);
+    show(3,w,s);
+    show(4,w,s);
+    cout<<endl;
+  }
+  return 0;
+}
+
+
+

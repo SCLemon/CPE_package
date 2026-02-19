@@ -1,0 +1,37 @@
+#include <iostream>
+#include <iomanip>
+#include <vector>
+
+using namespace std;
+
+#define ll long long
+bool check(int n, vector<int>& camp, int k){
+    int p=0;
+    for(;p<camp.size() && k>0;--k){
+        int t=0;
+        while(t+camp[p]<=n && p<camp.size()){
+            t += camp[p];
+            p++;
+        }
+    }
+    return p==camp.size();
+}
+int main() {
+    int a, b;
+    while(cin>>a>>b){
+        vector<int> camp(a+1);
+        int l=0, r=0;
+        for(auto&e:camp){
+            cin>>e;
+            r += e;
+        }
+        while(l<r){
+            int m = (l+r)/2;
+            if(check(m, camp, b+1))
+                r = m;
+            else
+                l = m+1;
+        }
+        cout<<l<<endl;
+    }
+}

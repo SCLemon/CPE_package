@@ -1,0 +1,32 @@
+#include<iostream>
+#include<string>
+#include<map>
+#include<queue>
+using namespace std;
+
+int main() {
+    string alpha="abcdefghijklmnopqrstuvwxyz";
+    queue<string> q;
+    vector<string> v;
+    for(auto c:alpha){
+        q.push(string(1,c));
+        v.push_back(string(1,c));
+    }
+    while(q.size()){
+        string s=q.front();
+        q.pop();
+        for(auto c:alpha){
+            if(s.back()<c){
+                string temp=s+c;
+                if(temp.size()>5)continue;
+                q.push(temp);
+                v.push_back(temp);
+            }
+        }
+    }
+    string s;
+    while(cin>>s){
+        auto it=find(v.begin(), v.end(), s);
+        cout<<(it==v.end()?0:it-v.begin()+1)<<endl;
+    }
+}

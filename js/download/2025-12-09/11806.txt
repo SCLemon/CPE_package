@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+
+#define ll long long
+const int mod = 1e6+7;
+ll C[401][401];
+int main() {
+    for(int i=0;i<=400;++i)
+        C[i][0]=C[i][i]=1;
+    for(int i=2;i<=400;++i){
+        for(int j=1;j<i;++j){
+            C[i][j]=(C[i-1][j]+C[i-1][j-1])%mod;
+        }
+    }
+    int kase;
+    cin>>kase;
+    for(int kk=0;kk<kase;++kk){
+        int n, m, k;
+        cin>>n>>m>>k;
+
+        int t = n*m;
+        if(k>n*m){
+        	printf("Case %d: %d\n", kk+1,0);
+        	continue;
+        }
+
+        ll ans = C[t][k];
+        ans -= C[t-n][k] *2;
+        ans -= C[t-m][k] *2;
+        ans += C[t-n-m+1][k] *4;
+        ans += C[t-n-n][k];
+        ans += C[t-m-m][k];
+        ans -= C[t-n-m-m+2][k] *2;
+        ans -= C[t-m-n-n+2][k] *2;
+        ans += C[t-n-n-m-m+4][k];
+        ans %= mod;
+        printf("Case %d: %d\n", kk+1, ans<0?ans+mod:ans);
+    }
+}

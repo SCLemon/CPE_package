@@ -1,0 +1,20 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int main(){
+  string s;getline(cin,s);
+  while(getline(cin,s)){
+    string p;int succ=1;
+    for(auto&c:s){
+      if(c=='('||c=='['){p.push_back(c);continue;}
+      if(p.size()==0          ){succ=0;break;}
+      if(c==')'&&p.back()!='('){succ=0;break;}
+      if(c==']'&&p.back()!='['){succ=0;break;}
+      p.pop_back();
+    }
+    if(p.size())succ=0;
+    if(succ)cout<<"Yes"<<endl;
+    else    cout<<"No" <<endl;
+  }
+  return 0;
+}

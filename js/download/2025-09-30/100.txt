@@ -1,0 +1,25 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int Len(int n){
+  int len=1;
+  while(n!=1){len++;
+    if(n%2==0)n/=2;
+    else      n=3*n+1;
+  }
+  return len;
+}
+int main(){
+  int a,b;
+  while(cin>>a>>b){cout<<a<<" "<<b<<" ";
+    if(a>b)swap(a,b);
+    int M=0;
+    for(int k=a;k<=b;k++){
+    	M=max(M,Len(k));
+    }
+    cout<<M<<endl;
+  }
+  return 0;
+}
+
+
