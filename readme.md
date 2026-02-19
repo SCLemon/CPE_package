@@ -8,8 +8,8 @@
 ## 🟢 CPE  報名資訊與題目分級
 題目主要出自於 UVA online judge
 
-https://cpe.mcu.edu.tw/cpe/
-https://par.cse.nsysu.edu.tw/~advprog/star.php
+- https://cpe.mcu.edu.tw/cpe/
+- https://par.cse.nsysu.edu.tw/~advprog/star.php
 
 ---
 
