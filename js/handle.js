@@ -1,46 +1,45 @@
 import fs from "fs";
 import path from "path";
 
-const ROOT_DIR = "./download";
+const BASE_DIR = "./combined";
+const QUESTION_DIR = path.join(BASE_DIR, "question");
+const SOLUTION_DIR = path.join(BASE_DIR, "solution");
 
-function renameInsideFolders(rootDir) {
-  const folders = fs.readdirSync(rootDir);
-
-  for (const folder of folders) {
-    const folderPath = path.join(rootDir, folder);
-
-    // 只處理資料夾
-    if (!fs.statSync(folderPath).isDirectory()) continue;
-
-    const files = fs.readdirSync(folderPath);
-
-    for (const file of files) {
-      const filePath = path.join(folderPath, file);
-
-      if (!fs.statSync(filePath).isFile()) continue;
-
-      // 抓 uva 後面的數字
-      const match = file.match(/uva(\d+)/);
-
-      if (match) {
-        const uvaNumber = match[1];
-        const ext = path.extname(file); // .txt 或 .pdf
-
-        const newName = `${uvaNumber}${ext}`;
-        const newPath = path.join(folderPath, newName);
-
-        if (fs.existsSync(newPath)) {
-          console.log("⚠ 已存在，跳過:", newPath);
-          continue;
-        }
-
-        fs.renameSync(filePath, newPath);
-        console.log("✅ 重命名:", filePath, "→", newPath);
-      }
-    }
-  }
+// 建立資料夾
+if (!fs.existsSync(QUESTION_DIR)) {
+  fs.mkdirSync(QUESTION_DIR);
 }
 
-renameInsideFolders(ROOT_DIR);
+if (!fs.existsSync(SOLUTION_DIR)) {
+  fs.mkdirSync(SOLUTION_DIR);
+}
 
-console.log("🎉 全部處理完成");
+const files = fs.readdirSync(BASE_DIR);
+
+for (const file of files) {
+  const filePath = path.join(BASE_DIR, file);
+
+  // 跳過資料夾本身
+  if (!fs.statSync(filePath).isFile()) continue;
+
+  const ext = path.extname(file).toLowerCase();
+
+  let targetPath;
+
+  if (ext === ".pdf") {
+    targetPath = path.join(QUESTION_DIR, file);
+  } else {
+    targetPath = path.join(SOLUTION_DIR, file);
+  }
+
+  // 避免覆蓋
+  if (fs.existsSync(targetPath)) {
+    console.log("⚠ 已存在，跳過:", file);
+    continue;
+  }
+
+  fs.renameSync(filePath, targetPath);
+  console.log("✅ 移動:", file);
+}
+
+console.log("🎉 分類完成");
